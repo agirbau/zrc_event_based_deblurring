@@ -11,7 +11,7 @@ class EventSequence(object):
     """Stores events in oldest-first order."""
 
     def __init__(
-        self, features, image_height, image_width, start_time=None, end_time=None
+            self, features, image_height, image_width, start_time=None, end_time=None
     ):
         """Returns object of EventSequence class.
 
@@ -20,7 +20,7 @@ class EventSequence(object):
                       rows correspond to individual events and columns to event
                       features (x, y, timestamp, polarity)
 
-            image_height, image_width: widht and height of the event sensor. 
+            image_height, image_width: widht and height of the event sensor.
                                        Note, that it can not be inferred
                                        directly from the events, because
                                        events are spares.
@@ -51,7 +51,6 @@ class EventSequence(object):
     def end_time(self):
         return self._end_time
 
-
     def filter_by_mask(self, mask, make_deep_copy=True):
         if make_deep_copy:
             return EventSequence(
@@ -72,12 +71,12 @@ class EventSequence(object):
 
     def filter_by_timestamp(self, start_time, duration, make_deep_copy=True):
         """Returns event sequence filtered by the timestamp.
-        
+
         The new sequence includes event in [start_time, start_time+duration).
         """
         end_time = start_time + duration
         mask = (start_time <= self._features[:, TIMESTAMP_COLUMN]) & (
-            end_time > self._features[:, TIMESTAMP_COLUMN]
+                end_time > self._features[:, TIMESTAMP_COLUMN]
         )
         event_sequence = self.filter_by_mask(mask, make_deep_copy)
         event_sequence._start_time = start_time
